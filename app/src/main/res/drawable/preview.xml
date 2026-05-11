@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Black background -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FF000000" />
+        </shape>
+    </item>
+
+    <!-- Time placeholder (white bar) -->
+    <item
+        android:top="130dp"
+        android:left="90dp"
+        android:right="90dp"
+        android:bottom="240dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFFFF" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+
+    <!-- BRIGHTDATE label placeholder (gray thin bar) -->
+    <item
+        android:top="248dp"
+        android:left="150dp"
+        android:right="150dp"
+        android:bottom="255dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#FF888888" />
+        </shape>
+    </item>
+
+    <!-- BrightDate value (gold bar) -->
+    <item
+        android:top="268dp"
+        android:left="80dp"
+        android:right="80dp"
+        android:bottom="310dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFD700" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+
+    <!-- Left complication circle -->
+    <item
+        android:top="325dp"
+        android:left="100dp"
+        android:right="235dp"
+        android:bottom="390dp">
+        <shape android:shape="oval">
+            <solid android:color="#FF1F1F1F" />
+        </shape>
+    </item>
+
+    <!-- Right complication circle -->
+    <item
+        android:top="325dp"
+        android:left="235dp"
+        android:right="100dp"
+        android:bottom="390dp">
+        <shape android:shape="oval">
+            <solid android:color="#FF1F1F1F" />
+        </shape>
+    </item>
+
+</layer-list>

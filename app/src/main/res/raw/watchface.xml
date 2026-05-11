@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<WatchFace width="450" height="450">
+    <Metadata key="CLOCK_TYPE" value="DIGITAL" />
+    <Metadata key="PREVIEW_TIME" value="10:08:32" />
+
+    <!-- Palette slots:
+         .0 = 12h time color
+         .1 = BrightDate value color
+         .2 = BRIGHTDATE label color -->
+    <UserConfigurations>
+        <ColorConfiguration id="themeColor"
+            displayName="@string/theme_label"
+            defaultValue="gold">
+            <ColorOption id="gold"  displayName="@string/theme_gold"  colors="#ffffffff #ffffd700 #ff888888" />
+            <ColorOption id="mint"  displayName="@string/theme_mint"  colors="#ffffffff #ff7fffd4 #ff7a8a84" />
+            <ColorOption id="sky"   displayName="@string/theme_sky"   colors="#ffffffff #ff8ecae6 #ff7a8794" />
+            <ColorOption id="rose"  displayName="@string/theme_rose"  colors="#ffffffff #ffff9ab5 #ff8e7a81" />
+            <ColorOption id="lilac" displayName="@string/theme_lilac" colors="#ffffffff #ffc9a0ff #ff7e7488" />
+            <ColorOption id="amber" displayName="@string/theme_amber" colors="#ffffffff #ffff9500 #ff8a7763" />
+            <ColorOption id="mono"  displayName="@string/theme_mono"  colors="#ffffffff #ffffffff #ff888888" />
+        </ColorConfiguration>
+    </UserConfigurations>
+
+    <Scene backgroundColor="#ff000000">
+
+        <!-- Standard 12-hour time (respects device 12/24h setting). -->
+        <DigitalClock x="0" y="0" width="450" height="450">
+            <TimeText
+                format="hh:mm"
+                hourFormat="SYNC_TO_DEVICE"
+                align="CENTER"
+                x="0" y="130" width="450" height="120"
+                alpha="255"
+                tintColor="[CONFIGURATION.themeColor.0]">
+                <Font
+                    family="SYNC_TO_DEVICE"
+                    size="92"
+                    weight="NORMAL"
+                    slant="NORMAL"
+                    color="#ffffffff" />
+            </TimeText>
+        </DigitalClock>
+
+        <!-- BRIGHTDATE label. -->
+        <PartText x="0" y="248" width="450" height="20"
+            tintColor="[CONFIGURATION.themeColor.2]">
+            <Text align="CENTER">
+                <Font family="SYNC_TO_DEVICE" size="12" weight="BOLD" color="#ffffffff"><![CDATA[BRIGHTDATE]]></Font>
+            </Text>
+        </PartText>
+
+        <!-- BrightDate value: days since J2000.0 on the TAI substrate, per
+             the canonical BrightDate spec.
+
+             Per the spec:  BD = (TAI_seconds_since_unix_epoch - 946_727_967.816) / 86400
+             The OS clock is UTC, so we convert via the current TAI-UTC offset:
+                 TAI_s = UTC_s + TAI_UTC_offset
+             Current TAI-UTC offset = 37 s (since 2017-01-01, unchanged since).
+             So for current times:
+                 BD = (UTC_s + 37 - 946_727_967.816) / 86400
+                    = (UTC_s - 946_727_930.816) / 86400
+                    = UTC_s / 86400 - 10957.49919926
+
+             Rewritten with [MINUTES_SINCE_EPOCH] for minute-aligned refresh:
+                 BD = [MINUTES_SINCE_EPOCH] / 1440 - 10957.49919926
+
+             Leap-second policy: the 37s offset is baked in as a constant. If
+             IERS ever inserts another leap second (none since 2016-12-31; ITU
+             voted to abolish them by 2035), ship a point release. -->
+        <PartText x="0" y="268" width="450" height="56"
+            tintColor="[CONFIGURATION.themeColor.1]">
+            <Text align="CENTER">
+                <Font family="SYNC_TO_DEVICE" size="40" weight="NORMAL" color="#ffffffff">
+                    <Template>%.5f<Parameter expression="[MINUTES_SINCE_EPOCH] / 1440.0 - 10957.49919926" /></Template>
+                </Font>
+            </Text>
+        </PartText>
+
+        <!-- Left complication (bottom-left): steps by default. -->
+        <ComplicationSlot
+            slotId="101"
+            x="105" y="345" width="80" height="80"
+            supportedTypes="SHORT_TEXT RANGED_VALUE MONOCHROMATIC_IMAGE">
+            <BoundingOval x="0" y="0" width="80" height="80" />
+            <DefaultProviderPolicy
+                defaultSystemProvider="STEP_COUNT"
+                defaultSystemProviderType="SHORT_TEXT" />
+            <Complication type="SHORT_TEXT">
+                <PartText x="0" y="24" width="80" height="32">
+                    <Text align="CENTER">
+                        <Font family="SYNC_TO_DEVICE" size="20" color="#ffffffff">
+                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                        </Font>
+                    </Text>
+                </PartText>
+            </Complication>
+            <Complication type="RANGED_VALUE">
+                <PartText x="0" y="24" width="80" height="32">
+                    <Text align="CENTER">
+                        <Font family="SYNC_TO_DEVICE" size="20" color="#ffffffff">
+                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                        </Font>
+                    </Text>
+                </PartText>
+            </Complication>
+            <Complication type="MONOCHROMATIC_IMAGE">
+                <PartImage x="15" y="15" width="50" height="50">
+                    <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                </PartImage>
+            </Complication>
+        </ComplicationSlot>
+
+        <!-- Right complication (bottom-right): watch battery by default. -->
+        <ComplicationSlot
+            slotId="102"
+            x="265" y="345" width="80" height="80"
+            supportedTypes="SHORT_TEXT RANGED_VALUE">
+            <BoundingOval x="0" y="0" width="80" height="80" />
+            <DefaultProviderPolicy
+                defaultSystemProvider="WATCH_BATTERY"
+                defaultSystemProviderType="SHORT_TEXT" />
+            <Complication type="SHORT_TEXT">
+                <PartText x="0" y="24" width="80" height="32">
+                    <Text align="CENTER">
+                        <Font family="SYNC_TO_DEVICE" size="20" color="#ffffffff">
+                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                        </Font>
+                    </Text>
+                </PartText>
+            </Complication>
+            <Complication type="RANGED_VALUE">
+                <PartText x="0" y="24" width="80" height="32">
+                    <Text align="CENTER">
+                        <Font family="SYNC_TO_DEVICE" size="20" color="#ffffffff">
+                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                        </Font>
+                    </Text>
+                </PartText>
+            </Complication>
+        </ComplicationSlot>
+
+    </Scene>
+</WatchFace>
