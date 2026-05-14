@@ -13,17 +13,18 @@ val keystoreProperties = Properties().apply {
 android {
     // Tell AGP this is a no-code project (WFF watch face).
     // This prevents dex generation entirely.
-    enableKotlin = false
+    // enableKotlin = false // This property is not recognized by AGP and is causing an error.
+    // The `android:hasCode="false"` in AndroidManifest.xml already indicates no code.
 
     namespace = "org.brightchain.brightdate"
-    compileSdk = 35
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "org.brightchain.brightdate"
-        minSdk = 35
-        targetSdk = 35
-        versionCode = 2
-        versionName = "1.0.1"
+        minSdk = 33
+        targetSdk = 34
+        versionCode = 4
+        versionName = "1.0.3"
     }
 
     signingConfigs {
@@ -39,7 +40,7 @@ android {
 
     buildTypes {
         debug {
-            isMinifyEnabled = true
+            isMinifyEnabled = false // Set to false for debug builds
         }
         release {
             isMinifyEnabled = true

@@ -13,7 +13,7 @@
             defaultValue="gold">
             <ColorOption id="gold"  displayName="@string/theme_gold"  colors="#ffffffff #ffffd700 #ff888888" />
             <ColorOption id="mint"  displayName="@string/theme_mint"  colors="#ffffffff #ff7fffd4 #ff7a8a84" />
-            <ColorOption id="sky"   displayName="@string/theme_sky"   colors="#ffffffff #ff8ecae6 #ff7a8794" />
+            <ColorOption id="sky"   displayName="@string="theme_sky"   colors="#ffffffff #ff8ecae6 #ff7a8794" />
             <ColorOption id="rose"  displayName="@string/theme_rose"  colors="#ffffffff #ffff9ab5 #ff8e7a81" />
             <ColorOption id="lilac" displayName="@string/theme_lilac" colors="#ffffffff #ffc9a0ff #ff7e7488" />
             <ColorOption id="amber" displayName="@string/theme_amber" colors="#ffffffff #ffff9500 #ff8a7763" />
@@ -61,8 +61,8 @@
                     = (UTC_s - 946_727_930.816) / 86400
                     = UTC_s / 86400 - 10957.49919926
 
-             Rewritten with [MINUTES_SINCE_EPOCH] for minute-aligned refresh:
-                 BD = [MINUTES_SINCE_EPOCH] / 1440 - 10957.49919926
+             Rewritten with [UTC_SECONDS] for second-aligned refresh:
+                 BD = [UTC_SECONDS] / 86400.0 - 10957.49919926
 
              Leap-second policy: the 37s offset is baked in as a constant. If
              IERS ever inserts another leap second (none since 2016-12-31; ITU
@@ -71,7 +71,7 @@
             tintColor="[CONFIGURATION.themeColor.1]">
             <Text align="CENTER">
                 <Font family="SYNC_TO_DEVICE" size="40" weight="NORMAL" color="#ffffffff">
-                    <Template>%.5f<Parameter expression="[MINUTES_SINCE_EPOCH] / 1440.0 - 10957.49919926" /></Template>
+                    <Template>%.5f<Parameter expression="[UTC_SECONDS] / 86400.0 - 10957.49919926" /></Template>
                 </Font>
             </Text>
         </PartText>
