@@ -1,6 +1,6 @@
 # BrightDate Watch Face
 
-A Wear OS watch face that displays the current time alongside a live **[BrightDate](brightdate-README.md)** value — the universal decimal time anchored at J2000.0.
+A Wear OS watch face that displays the current time alongside a live **[BrightDate](https://brightdate.org)** value — the universal decimal time anchored at J2000.0.
 
 ![Screenshot](screenshot.png)
 
