@@ -21,10 +21,10 @@ android {
 
     defaultConfig {
         applicationId = "org.brightchain.brightdate"
-        minSdk = 33
+        minSdk = 34
         targetSdk = 34
-        versionCode = 6
-        versionName = "1.0.6"
+        versionCode = 10
+        versionName = "1.1.0"
     }
 
     signingConfigs {

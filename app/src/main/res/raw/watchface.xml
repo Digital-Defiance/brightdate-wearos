@@ -9,19 +9,29 @@
          .2 = BRIGHTDATE label color -->
     <UserConfigurations>
         <ColorConfiguration id="themeColor"
-            displayName="@string/theme_label"
+            displayName="Theme"
             defaultValue="gold">
-            <ColorOption id="gold"  displayName="@string/theme_gold"  colors="#ffffffff #ffffd700 #ff888888" />
-            <ColorOption id="mint"  displayName="@string/theme_mint"  colors="#ffffffff #ff7fffd4 #ff7a8a84" />
-            <ColorOption id="sky"   displayName="@string/theme_sky"   colors="#ffffffff #ff8ecae6 #ff7a8794" />
-            <ColorOption id="rose"  displayName="@string/theme_rose"  colors="#ffffffff #ffff9ab5 #ff8e7a81" />
-            <ColorOption id="lilac" displayName="@string/theme_lilac" colors="#ffffffff #ffc9a0ff #ff7e7488" />
-            <ColorOption id="amber" displayName="@string/theme_amber" colors="#ffffffff #ffff9500 #ff8a7763" />
-            <ColorOption id="mono"  displayName="@string/theme_mono"  colors="#ffffffff #ffffffff #ff888888" />
+            <ColorOption id="gold"  displayName="Gold"  colors="#ffffffff #ffffd700 #ff888888" />
+            <ColorOption id="mint"  displayName="Mint"  colors="#ffffffff #ff7fffd4 #ff7a8a84" />
+            <ColorOption id="sky"   displayName="Sky"   colors="#ffffffff #ff8ecae6 #ff7a8794" />
+            <ColorOption id="rose"  displayName="Rose"  colors="#ffffffff #ffff9ab5 #ff8e7a81" />
+            <ColorOption id="lilac" displayName="Lilac" colors="#ffffffff #ffc9a0ff #ff7e7488" />
+            <ColorOption id="amber" displayName="Amber" colors="#ffffffff #ffff9500 #ff8a7763" />
+            <ColorOption id="mono"  displayName="Mono"  colors="#ffffffff #ffffffff #ff888888" />
         </ColorConfiguration>
     </UserConfigurations>
 
     <Scene backgroundColor="#ff000000">
+
+        <!-- Current local day: e.g. "Wed May 20" -->
+        <PartText x="0" y="96" width="450" height="32"
+            tintColor="[CONFIGURATION.themeColor.1]">
+            <Text align="CENTER">
+                <Font family="SYNC_TO_DEVICE" size="28" weight="NORMAL" color="#ffffffff">
+                    <Template>%s %s %d<Parameter expression="[DAY_OF_WEEK_S]" /><Parameter expression="[MONTH_S]" /><Parameter expression="[DAY]" /></Template>
+                </Font>
+            </Text>
+        </PartText>
 
         <!-- Standard 12-hour time (respects device 12/24h setting). -->
         <DigitalClock x="0" y="0" width="450" height="450">
